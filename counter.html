@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Count Up by Danny Martin</title>
+  </head>
+  <body>
+    <span class="count-up" data-number="15000">0</span><br />
+    <span class="count-up" data-number="3200">0</span><br />
+    <span class="count-up" data-number="100">0</span><br />
+    <span class="count-up" data-number="7367">0</span><br />
+
+    <script>
+      const countUp = () => {
+        // Add commas to number if greater than 9999
+        const formatNumber = (num) => {
+          if (num > 9999) {
+            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+          } else {
+            return num;
+          }
+        };
+
+        const statistics = document.querySelectorAll(".count-up");
+
+        Array.from(statistics).forEach((statistic) => {
+          const stat = statistic.dataset.number;
+          const numberAdded = 47;
+          const mod = stat % numberAdded;
+          let number = mod;
+          let increment = stat - mod;
+          increment = stat / numberAdded;
+          increment = Math.floor(increment);
+
+          setInterval(() => {
+            if (number < stat) {
+              number += increment;
+              statistic.innerHTML = formatNumber(number);
+            }
+          }, 20);
+        });
+      };
+
+      countUp();
+    </script>
+  </body>
+</html>
